@@ -1,0 +1,32 @@
+Sub tarea_test():
+    Dim ws As Worksheet
+    Dim starting_ws As Worksheet
+    Set starting_ws = ActiveSheet
+
+    For Each ws In ThisWorkbook.Worksheets
+    ws.Activate
+         
+        
+        Cells(1, 9).Value = "ticker"
+        Cells(1, 10).Value = "total stock volume"
+        Dim tick_column As Integer
+        tick_column = 2
+        Dim TSV As LongLong
+        TSV = 0
+        lcell = Cells(Rows.Count, "A").End(xlUp).Row
+        'loop into tick
+        For i = 2 To lcell
+            If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+                tick_name = Cells(i, 1).Value
+                TSV = TSV + Cells(i, 7).Value
+                Range("I" & tick_column).Value = tick_name
+                Range("J" & tick_column).Value = TSV
+                tick_column = tick_column + 1
+                TSV = 0
+            Else
+                TSV = TSV + Cells(i, 7).Value
+            End If
+        Next i
+        
+    Next
+End Sub
